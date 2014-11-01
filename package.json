@@ -4,7 +4,7 @@
   "description": "Trigger react js lifecycle events on your model",
   "main": "index.js",
   "scripts": {
-    "test": "grunt"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -20,10 +20,12 @@
     "url": "https://github.com/charliedowler/lifecyclemixin/issues"
   },
   "homepage": "https://github.com/charliedowler/lifecyclemixin",
-  "dependencies": {
-    "underscore": "^1.7.0"
-  },
   "devDependencies": {
-    "backbone": "^1.1.2"
+    "backbone": "^1.1.2",
+    "react": "^0.12.0",
+    "jest-cli": "^0.1.18"
+  },
+  "jest": {
+    "unmockedModulePathPatterns": ["./node_modules/backbone", "./node_modules/react", "./node_modules/underscore"]
   }
 }

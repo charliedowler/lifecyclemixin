@@ -32,7 +32,6 @@
 
 
   if (typeof module !== 'undefined' && 'exports' in module) {
-    var _ = require('underscore');
     module.exports = mixin;
   } else if (typeof define !== 'undefined') {
     define(function(require, exports, module) {

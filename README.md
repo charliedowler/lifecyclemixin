@@ -1,4 +1,4 @@
-# lifecyclemixin
+# lifecyclemixin [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
 
 > Fire React lifecycle events on your Backbone models, collections and views.
 
@@ -34,3 +34,9 @@ var Component = React.createClass({
     }
 });
 ```
+
+[npm-url]: https://npmjs.org/package/lifecyclemixin
+[npm-image]: https://badge.fury.io/js/lifecyclemixin.png
+
+[travis-url]: http://travis-ci.org/charliedowler/lifecyclemixin
+[travis-image]: https://secure.travis-ci.org/charliedowler/lifecyclemixin.png?branch=master
