@@ -2,15 +2,10 @@
   'use strict';
 
   function handleEvent(event) {
-    var objs = [];
     for (var s in this.state) {
-      objs.push(this.state[s]);
+      var state = this.state[s];
+      state._events && state.trigger(event);
     }
-    objs = objs.filter(function(state) {
-      return state && state._events;
-    }).forEach(function(obj) {
-      obj.trigger(event);
-    });
   }
   var mixin = {
     componentWillMount: function() {
