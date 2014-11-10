@@ -12,24 +12,19 @@
       obj.trigger(event);
     });
   }
-  var mixin = {
-    componentWillMount: function() {
-      handleEvent.call(this, 'componentWillMount');
-    },
-    componentDidMount: function() {
-      handleEvent.call(this, 'componentDidMount');
-    },
-    componentWillUnmount: function() {
-      handleEvent.call(this, 'componentWillUnmount');
-    },
-    componentDidUnmount: function() {
-      handleEvent.call(this, 'componentDidUnmount');
-    },
-    componentDidUpdate: function() {
-      handleEvent.call(this, 'componentDidUpdate');
-    }
-  };
 
+  var mixin = {};
+
+  [ 'componentWillMount',
+    'componentDidMount',
+    'componentWillUnmount',
+    'componentDidUnmount',
+    'componentDidUpdate'
+  ].forEach(function(event) {
+    mixin[event] = function() {
+      handleEvent.call(this, event);
+    };
+  });
 
   if (typeof module !== 'undefined' && 'exports' in module) {
     module.exports = mixin;
