@@ -1,6 +1,4 @@
 (function() {
-  'use strict';
-
   function handleEvent(event) {
     var objs = [];
     for (var s in this.state) {
@@ -17,9 +15,8 @@
 
   [ 'componentWillMount',
     'componentDidMount',
-    'componentWillUnmount',
-    'componentDidUnmount',
-    'componentDidUpdate'
+    'componentDidUpdate',
+    'componentWillUnmount'
   ].forEach(function(event) {
     mixin[event] = function() {
       handleEvent.call(this, event);

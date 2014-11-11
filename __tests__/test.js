@@ -6,13 +6,19 @@ jest.dontMock('../index');
 var lifecyclemixin = require('../index');
 describe('Fire events on backbone model', function() {
   it('should', function() {
-    var willMount = false;
+    var willMount = false,
+      willUnmount = false;
+
     var Model = Backbone.Model.extend({
       initialize: function() {
         this.on('componentWillMount', this.componentWillMount, this);
+        this.on('componentWillUnmount', this.componentWillUnmount, this);
       },
       componentWillMount: function() {
         willMount = true;
+      },
+      componentWillUnmount: function() {
+        willUnmount = true;
       }
     });
 
@@ -26,12 +32,29 @@ describe('Fire events on backbone model', function() {
       componentDidMount: function() {
         expect(willMount).toEqual(true);
       },
+      componentWillUnmount: function() {
+        expect(willUnmount).toEqual(true);
+      },
       render: function() {
         return React.createElement('div', null, 'Hello World');
       }
     });
 
-    TestUtils.renderIntoDocument(React.createElement(Component));
+    var ParentComponent = React.createClass({
+      getInitialState: function() {
+        return {
+          unmountMe: false
+        };
+      },
+      componentDidMount: function() {
+        this.setState({ unmountMe: true });
+      },
+      render: function() {
+        return !this.state.unmountMe ? React.createElement(Component) : null;
+      }
+    });
+
+    TestUtils.renderIntoDocument(React.createElement(ParentComponent));
 
   });
 });
