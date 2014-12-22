@@ -57,4 +57,48 @@ describe('Fire events on backbone model', function() {
     TestUtils.renderIntoDocument(React.createElement(ParentComponent));
 
   });
+
+  it('should be able to manually listen for events', function() {
+    var didMount = false;
+    var Model = Backbone.Model.extend({
+      initialize: function() {
+        this.on('componentDidMount', this.componentDidMount);
+      },
+      componentDidMount: function() {
+        didMount = true;
+      }
+    });
+
+    var model = new Model();
+
+    var Component = React.createClass({
+      mixins: [lifecyclemixin],
+      componentWillMount: function() {
+        this.addLifecycleListener(model);
+      },
+      componentWillUnmount: function() {
+        expect(didMount).toEqual(true);
+        this.removeLifecycleListener(model);
+      },
+      render: function() {
+        return React.createElement('div', null, 'Hello World');
+      }
+    });
+
+    var ParentComponent = React.createClass({
+      getInitialState: function() {
+        return {
+          unmountMe: false
+        };
+      },
+      componentDidMount: function() {
+        this.setState({ unmountMe: true });
+      },
+      render: function() {
+        return !this.state.unmountMe ? React.createElement(Component) : null;
+      }
+    });
+
+    TestUtils.renderIntoDocument(React.createElement(ParentComponent));
+  });
 });

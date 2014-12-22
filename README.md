@@ -7,6 +7,14 @@
 $ npm install --save lifecyclemixin
 ```
 
+## Methods
+
+lifecyclemixin searches your state for Backbone objects and automatically binds the events. Use these methods for models outside your state.
+
+`@addLifecycleListener(foo: Backbone.Model)`
+
+`@removeLifecycleListener(foo: Backbone.Model)`
+
 ## Usage
 ```js
 var React = require('react');
@@ -22,12 +30,19 @@ var Model = Backbone.Model.extend({
     }
 });
 
+var myModel = new Model();
 var Component = React.createClass({
     mixins: [lifecyclemixin],
     getInitialState: function() {
         return {
             model: new Model()
         };
+    },
+    componentWillMount: function() {
+        this.addLifecycleListener(myModel);
+    },
+    componentWillUnmount: function() {
+        this.removeLifecycleListener(myModel);
     },
     render: function() {
         return <div> Hello World </div>;
