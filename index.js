@@ -31,11 +31,9 @@
     manual.push(obj);
   };
   mixin.removeLifecycleListener = function(obj) {
-    for (var m in manual) {
-      if (manual[m] == obj) {
-        manual.splice(m, 1);
-      }
-    }
+    manual = manual.filter(function(m) {
+      return m != obj;
+    });
   };
 
   if (typeof module !== 'undefined' && 'exports' in module) {
