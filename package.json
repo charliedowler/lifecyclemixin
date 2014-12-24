@@ -1,6 +1,6 @@
 {
   "name": "lifecyclemixin",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Trigger react js lifecycle events on your model",
   "main": "index.js",
   "scripts": {
