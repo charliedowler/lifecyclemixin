@@ -69,12 +69,21 @@ describe('Fire events on backbone model', function() {
       }
     });
 
-    var model = new Model();
+    var model = {};
+    var error = false;
 
     var Component = React.createClass({
       mixins: [lifecyclemixin],
       componentWillMount: function() {
-        this.addLifecycleListener(model);
+        try {
+          this.addLifecycleListener(model);
+        }
+        catch(e) {
+          error = true;
+          model = new Model();
+          this.addLifecycleListener(model);
+        }
+        expect(error).toEqual(true);
       },
       componentWillUnmount: function() {
         expect(didMount).toEqual(true);
